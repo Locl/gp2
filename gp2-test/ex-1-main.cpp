@@ -1,5 +1,5 @@
 #include <iostream>
-#include "gp2/prime.h"
+#include "../gp2/prime.h"
 
 void test_nth_prime(int expected, unsigned int a, unsigned int d, unsigned int n) {
 	const char* result = (expected == nth_prime(a, d, n)) ? "ok" : "invalid";
