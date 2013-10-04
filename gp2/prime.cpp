@@ -5,9 +5,9 @@ using namespace std;
 
 int nth_prime(unsigned int a, unsigned int d, unsigned int n){
 	unsigned int m=0;
-	if(a == 1 && d == 1 && n == 1)return 2;
 	for(unsigned int i = 0;; i += d){
 		bool flag = true;
+		if(a+i < 2)flag=false;
 		for(unsigned int j = 2; j < (a+i)/2; j++){
 			if((a+i)%j == 0){
 				flag = false;
