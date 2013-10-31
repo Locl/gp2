@@ -64,14 +64,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\gp2-test\ex-3.cpp" />
-    <ClCompile Include="gp2-test.cpp" />
-    <ClCompile Include="pos.cpp" />
-    <ClCompile Include="tileset.cpp" />
+    <ClCompile Include="..\gp2-test\report-01.cpp" />
+    <ClCompile Include="mcxi.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pos.h" />
-    <ClInclude Include="tileset.h" />
+    <ClInclude Include="mcxi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
