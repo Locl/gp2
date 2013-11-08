@@ -46,6 +46,10 @@ namespace gp2{
 	std::string Mcxi::GetMcxi() const{
 		std::string mcxiString = "";
 		int testMcxi;
+		
+		if(mcxi > 9999){
+			throw "mcxi overflow";
+		}
 
 		for(int i = 0; i < MCXIMAX; i++){
 			testMcxi = mcxi / MULMCXI[i] % 10;
