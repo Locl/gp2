@@ -1,6 +1,13 @@
 #include"mcxi.h"
 
 namespace gp2{
+	
+	/** MCXI文字列を設定する。
+	* 引数をstringで与えることで構文を解析し、
+	* 正しいMCXI文字列であれば内部にMCXI値として格納する。
+	* MCXI構文に間違いがあれば例外を発生する。
+	* @param const std::string& s 設定するMCXI文字列
+	*/
 	void Mcxi::SetMcxi(const std::string& s){
 		const int DEFFREENUM = 1;
 		int lastChar = MULMCXI[0] + 1;
@@ -43,12 +50,17 @@ namespace gp2{
 		}
 	}
 
+	/** string型としてMCXI文字列を出力する。
+	* 内部に格納されているMCXI値が
+	* MCXI文字列で表現できない場合、例外を発生させる。
+	* @return MCXI文字列
+	*/
 	std::string Mcxi::GetMcxi() const{
 		std::string mcxiString = "";
 		int testMcxi;
 		
-		if(mcxi > 9999){
-			throw "mcxi overflow";
+		if(mcxi > 9999 || mcxi < 0){
+			throw "mcxi out of range";
 		}
 
 		for(int i = 0; i < MCXIMAX; i++){
