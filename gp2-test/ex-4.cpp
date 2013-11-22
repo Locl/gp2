@@ -211,4 +211,28 @@ BOOST_AUTO_TEST_CASE(TestNotSet) {
     }
 }
 
+BOOST_AUTO_TEST_CASE(TestNotSet2) {
+    try {
+		gp2::Mcxi a;
+		a.GetMcxi();
+		BOOST_FAIL("never reached");
+    }
+    catch (std::exception& /*err*/) {
+        BOOST_TEST_PASSPOINT();
+    }
+}
+
+BOOST_AUTO_TEST_CASE(TestNotSet3) {
+    try {
+		gp2::Mcxi a,b,ans;
+		ans = a + b;
+		ans.GetMcxi();
+		BOOST_FAIL("never reached");
+    }
+    catch (std::exception& /*err*/) {
+        BOOST_TEST_PASSPOINT();
+    }
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
