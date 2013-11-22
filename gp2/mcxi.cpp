@@ -1,4 +1,5 @@
 #include"mcxi.h"
+#include<stdexcept>
 
 namespace gp2{
 	
@@ -22,7 +23,7 @@ namespace gp2{
 					continue;
 				}
 				else{
-					throw "Sintax error:Continuous number";
+					throw std::runtime_error("Sintax error:Continuous number");
 				}
 			}
 			validChar = false;
@@ -36,17 +37,17 @@ namespace gp2{
 						break;
 					}
 					else{
-						throw "Sintax error:Invalid " + CHARMCXI[j];
+						throw std::runtime_error("Sintax error:Invalid " + CHARMCXI[j]);
 					}
 				}
 			}
 			if(validChar == false){
-				throw "Sintax error:Invalid charactor";
+				throw std::runtime_error("Sintax error:Invalid charactor");
 			}
 		}
 
 		if(freeNum != DEFFREENUM){
-			throw "Sintax error:Last charactor is number";
+			throw std::runtime_error("Sintax error:Last charactor is number");
 		}
 	}
 
@@ -60,7 +61,7 @@ namespace gp2{
 		int testMcxi;
 		
 		if(mcxi > 9999 || mcxi < 0){
-			throw "mcxi out of range";
+			throw std::runtime_error("mcxi out of range");
 		}
 
 		for(int i = 0; i < MCXIMAX; i++){
@@ -74,7 +75,7 @@ namespace gp2{
 		}
 
 		if(mcxiString == ""){
-			throw "mcxi not set";
+			throw std::runtime_error("mcxi not set");
 		}
 
 		return mcxiString;

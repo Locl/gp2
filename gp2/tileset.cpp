@@ -1,7 +1,8 @@
-#include "tileset.h";
-#include "pos.h";
-#include<stack>;
-//#include<iostream>;
+#include "tileset.h"
+#include "pos.h"
+#include<stack>
+#include<stdexcept>
+//#include<iostream>
 
 namespace gp2{
 	tileset::tileset(int column, int row){
@@ -21,19 +22,19 @@ namespace gp2{
 
 	void tileset::add(const std::basic_string<char>& tile_line){
 		if(this->row <= linenum){
-			throw "row error";
+			throw std::runtime_error("row error");
 		}
 
 		for(int i = 0; tile_line[i]!='\0'; i++){
 			if(column <= i){
-				throw "column error";
+				throw std::runtime_error("column error");
 			}
 			if(!(tile_line[i]==RTILE||tile_line[i]==BTILE||tile_line[i]==MAN)){
-				throw "charactor error";
+				throw std::runtime_error("charactor error");
 			}
 			if(tile_line[i] == MAN){
 				if(man_pos.getx() >= 0){
-					throw "multi men error";
+					throw std::runtime_error("multi men error");
 				}
 				man_pos.setpos(i, linenum);	
 				//std::cout << "man_pos set(" << man_pos.getx() << ","
@@ -47,7 +48,7 @@ namespace gp2{
 
 	void tileset::calculate(){
 		if(man_pos.getx() < 0){
-			throw "no exist man error";
+			throw std::runtime_error("no exist man error");
 		}
 		bool reached[CMAX][RMAX];
 		std::stack<pos> searchlist;
