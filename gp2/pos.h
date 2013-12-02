@@ -2,6 +2,11 @@
 #define GP2_POS_H
 
 namespace gp2 {
+	/* pos 2次元座標クラス
+	*  
+	*  x,yの二つの座標であらわされる点を格納する
+	*
+	*/
 	class pos {
 	private:
 		int x;
