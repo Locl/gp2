@@ -32,23 +32,27 @@ namespace gp2{
 			if(column <= i){
 				throw std::runtime_error("column error");
 			}
-			// ³‚µ‚­‚È‚¢•¶Žš‚ª‚ ‚éê‡
-			if(!(tile_line[i]==RTILE||tile_line[i]==BTILE||tile_line[i]==MAN)){
-				throw std::runtime_error("charactor error");
-			}
-			if(tile_line[i] == MAN){
-				// •¡”@‚ª‚ ‚éê‡
-				if(man_pos.getx() >= 0){
-					throw std::runtime_error("multi men error");
-				}
-				man_pos.setpos(i, linenum);	
-				//std::cout << "man_pos set(" << man_pos.getx() << ","
-				//	<< man_pos.gety() << ")" << std::endl;
-			}
+			checkCharactor(tile_line[i],i);
 			room[i][linenum] = tile_line[i];
 		}
 
 		linenum++;
+	}
+
+	void tileset::checkCharactor(char c,int x){
+		// ³‚µ‚­‚È‚¢•¶Žš‚ª‚ ‚éê‡
+		if(!(c==RTILE||c==BTILE||c==MAN)){
+			throw std::runtime_error("charactor error");
+		}
+		if(c == MAN){
+			// •¡”@‚ª‚ ‚éê‡
+			if(man_pos.getx() >= 0){
+				throw std::runtime_error("multi men error");
+			}
+			man_pos.setpos(x, linenum);	
+			//std::cout << "man_pos set(" << man_pos.getx() << ","
+			//	<< man_pos.gety() << ")" << std::endl;
+		}
 	}
 
 	void tileset::calculate(){
@@ -82,40 +86,24 @@ namespace gp2{
 			// “ž’BÏ‚Ý‚Å‚ ‚é‚Æ‚¢‚¤ˆó‚ð‚Â‚¯‚é
 
 			// ã
-			if(y-1 >= 0){
-				if(room[x][y-1] == BTILE && reached[x][y-1] == false){
-					pos* temp = new pos(x, y-1);
-					searchlist.push(*temp);
-					reached[x][y-1] = true;
-					delete temp;
-				}
-			}
+			lookAhead(searchlist,reached,x,y-1);
 			// ‰E
-			if(x+1 < column){
-				if(room[x+1][y] == BTILE && reached[x+1][y] == false){
-					pos* temp = new pos(x+1, y);
-					searchlist.push(*temp);
-					reached[x+1][y] = true;
-					delete temp;
-				}
-			}
+			lookAhead(searchlist,reached,x+1,y);
 			// ‰º
-			if(y+1 < row){
-				if(room[x][y+1] == BTILE && reached[x][y+1] == false){
-					pos* temp = new pos(x, y+1);
-					searchlist.push(*temp);
-					reached[x][y+1] = true;
-					delete temp;
-				}
-			}
+			lookAhead(searchlist,reached,x,y+1);
 			// ¶
-			if(x-1 >= 0){
-				if(room[x-1][y] == BTILE && reached[x-1][y] == false){
-					pos* temp = new pos(x-1, y);
-					searchlist.push(*temp);
-					reached[x-1][y] = true;
-					delete temp;
-				}
+			lookAhead(searchlist,reached,x-1,y);
+		}
+	}
+
+	void tileset::lookAhead(std::stack<pos>& searchlist,bool reached[CMAX][RMAX],int x,int y){
+		if(x >= 0 && x < column && y >= 0 && y < row){
+			if(room[x][y] == BTILE && reached[x][y] == false){
+				pos* temp = new pos(x, y);
+				searchlist.push(*temp);
+				reached[x][y] = true;
+				//std::cout << "searchlist push" << std::endl;
+				delete temp;
 			}
 		}
 	}

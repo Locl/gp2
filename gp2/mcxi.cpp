@@ -17,29 +17,12 @@ namespace gp2{
 		mcxi = 0;
 
 		for(int i = 0; s.size() > (unsigned)i; i++){
-			if(s.at(i) >= '2' && s.at(i) <= '9'){
-				if(freeNum == DEFFREENUM){
-					freeNum = s.at(i) - 0x30;
-					continue;
-				}
-				else{
-					throw std::runtime_error("Sintax error:Continuous number");
-				}
-			}
+			// •¶š‚ª”š‚Å‚ ‚é‚©‚ğ’²‚×‚é
+			if(NumCheck(s.at(i),freeNum,DEFFREENUM))continue;
 			validChar = false;
+			// •¶š‚ªmcxi‚Ì‚Ç‚ê‚©‚Å‚ ‚é‚©‚ğ’²‚×‚é
 			for(int j = 0; j < MCXIMAX; j++){
-				if(s.at(i) == CHARMCXI[j]){
-					if(lastChar > MULMCXI[j]){
-						mcxi += MULMCXI[j] * freeNum;
-						freeNum = DEFFREENUM;
-						lastChar = MULMCXI[j];
-						validChar = true;
-						break;
-					}
-					else{
-						throw std::runtime_error("Sintax error:Invalid " + CHARMCXI[j]);
-					}
-				}
+				if(CharactorCheck(s.at(i),j,freeNum,lastChar,validChar,DEFFREENUM))break;
 			}
 			if(validChar == false){
 				throw std::runtime_error("Sintax error:Invalid charactor");
@@ -49,6 +32,35 @@ namespace gp2{
 		if(freeNum != DEFFREENUM){
 			throw std::runtime_error("Sintax error:Last charactor is number");
 		}
+	}
+
+	bool Mcxi::NumCheck(char c, int& freeNum, const int DEFFREENUM){
+		if(c >= '2' && c <= '9'){
+			if(freeNum == DEFFREENUM){
+				freeNum = c - 0x30;
+				return true;
+			}
+			else{
+				throw std::runtime_error("Sintax error:Continuous number");
+			}
+		}
+		return false;
+	}
+
+	bool Mcxi::CharactorCheck(char c, int x, int& freeNum, int& lastChar, bool& validChar, const int DEFFREENUM){
+		if(c == CHARMCXI[x]){
+			if(lastChar > MULMCXI[x]){
+				mcxi += MULMCXI[x] * freeNum;
+				freeNum = DEFFREENUM;
+				lastChar = MULMCXI[x];
+				validChar = true;
+				return true;
+			}
+			else{
+				throw std::runtime_error("Sintax error:Invalid " + CHARMCXI[x]);
+			}
+		}
+		return false;
 	}
 
 	/** stringŒ^‚Æ‚µ‚ÄMCXI•¶š—ñ‚ğo—Í‚·‚éB

@@ -10,6 +10,9 @@ namespace gp2{
 		static const int MCXIMAX = 4;
 		static const int MULMCXI[MCXIMAX];
 		static const char CHARMCXI[MCXIMAX];
+
+		bool NumCheck(char,int&,const int);
+		bool CharactorCheck(char,int,int&,int&,bool&,const int);
 	public:
 		void SetMcxi(const std::string&);
 		std::string GetMcxi() const;
