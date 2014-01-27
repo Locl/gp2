@@ -9,6 +9,10 @@ namespace gp2{
 	private:
 		const static int POINTNUM_MIN = 3;
 		const static int POINTNUM_MAX = 10;
+		const static int POINTVAL_X_MIN = -10000;
+		const static int POINTVAL_X_MAX = 10000;
+		const static int POINTVAL_Y_MIN = -10000;
+		const static int POINTVAL_Y_MAX = 10000;
 		unsigned int pointNum;				// 折れ線を構成する座標の数の上限
 		std::vector<pos> point;				// 折れ線を構成する座標
 	public:

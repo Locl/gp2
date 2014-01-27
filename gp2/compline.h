@@ -8,7 +8,7 @@ namespace gp2{
 	class CompLine{
 	private:
 		const static int PLINE_MIN = 2;
-		const static int PLINE_MAX = 50;
+		const static int PLINE_MAX = 51;
 		std::vector<pLine> pLineVector;		// Ü‚êü‚ÌW‡
 		bool compare2PLine(pLine&,pLine&);
 		bool compare2PLineR(pLine&,pLine&);

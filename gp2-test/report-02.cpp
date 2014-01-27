@@ -139,6 +139,39 @@ BOOST_AUTO_TEST_CASE(TestValidCase3) {
     }
 }
 
+BOOST_AUTO_TEST_CASE(TestValidCase4) {
+    try {
+		gp2::CompLine a;
+		std::vector<int> matchlist;
+		std::stringstream ss;
+		std::stringstream ss2;
+		for(int i = 0; i < 51; i++){
+			a.addPLine(10);
+			a.addPLinePoint(0,0);
+			a.addPLinePoint(9999,0);
+			a.addPLinePoint(9999,-9999);
+			a.addPLinePoint(-9999,-9999);
+			a.addPLinePoint(-9999,9999);
+			a.addPLinePoint(9999,9999);
+			a.addPLinePoint(9999,100);
+			a.addPLinePoint(0,100);
+			a.addPLinePoint(0,-9999);
+			a.addPLinePoint(-100,-9999);
+		}
+		matchlist = a.comparePLine();
+		for(std::vector<int>::iterator it = matchlist.begin(); it != matchlist.end(); it++){
+			ss << *it << "\n";
+		}
+		for(int i = 1; i < 51; i++){
+			ss2 << i << "\n";
+		}
+		BOOST_CHECK_EQUAL(ss2.str(), ss.str());
+    }
+    catch (std::exception& err) {
+        BOOST_FAIL(err.what());
+    }
+}
+
 BOOST_AUTO_TEST_CASE(TestTooManyPoint) {
     try {
 		gp2::CompLine a;
@@ -186,7 +219,7 @@ BOOST_AUTO_TEST_CASE(TestManyPLine) {
     try {
 		gp2::CompLine a;
 		std::vector<int> matchlist;
-		for(int i = 0; i < 51; i++){
+		for(int i = 0; i < 52; i++){
 			a.addPLine(3);
 			a.addPLinePoint(0,0);
 			a.addPLinePoint(0,3);
@@ -228,6 +261,62 @@ BOOST_AUTO_TEST_CASE(TestTooFewPointNum) {
 		a.addPLine(2);
 		a.addPLinePoint(0,0);
 		a.addPLinePoint(2,0);
+		BOOST_FAIL("never reached");
+    }
+    catch (std::exception& /*err*/) {
+        BOOST_TEST_PASSPOINT();
+    }
+}
+
+BOOST_AUTO_TEST_CASE(TestTooHighPointX) {
+    try {
+		gp2::CompLine a;
+		a.addPLine(3);
+		a.addPLinePoint(0,0);
+		a.addPLinePoint(10000,0);
+		a.addPLinePoint(10000,100);
+		BOOST_FAIL("never reached");
+    }
+    catch (std::exception& /*err*/) {
+        BOOST_TEST_PASSPOINT();
+    }
+}
+
+BOOST_AUTO_TEST_CASE(TestTooLowPointX) {
+    try {
+		gp2::CompLine a;
+		a.addPLine(3);
+		a.addPLinePoint(0,0);
+		a.addPLinePoint(-10000,0);
+		a.addPLinePoint(-10000,100);
+		BOOST_FAIL("never reached");
+    }
+    catch (std::exception& /*err*/) {
+        BOOST_TEST_PASSPOINT();
+    }
+}
+
+BOOST_AUTO_TEST_CASE(TestTooHighPointY) {
+    try {
+		gp2::CompLine a;
+		a.addPLine(3);
+		a.addPLinePoint(0,0);
+		a.addPLinePoint(200,0);
+		a.addPLinePoint(200,10000);
+		BOOST_FAIL("never reached");
+    }
+    catch (std::exception& /*err*/) {
+        BOOST_TEST_PASSPOINT();
+    }
+}
+
+BOOST_AUTO_TEST_CASE(TestTooLowPointY) {
+    try {
+		gp2::CompLine a;
+		a.addPLine(3);
+		a.addPLinePoint(0,0);
+		a.addPLinePoint(200,0);
+		a.addPLinePoint(200,-10000);
 		BOOST_FAIL("never reached");
     }
     catch (std::exception& /*err*/) {

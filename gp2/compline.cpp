@@ -7,6 +7,9 @@ namespace gp2{
 	*  @param pointNum Ü‚êü‚ğ\¬‚·‚éÀ•W‚Ì”‚ÌãŒÀ
 	*/
 	void CompLine::addPLine(unsigned int pointNum){
+		// Ü‚êü‚Ì”‚ª‘½‚·‚¬‚éê‡
+		if(PLINE_MAX < pLineVector.size()+1)
+			throw std::runtime_error("Too many pLine num");
 		pLine tmp;
 
 		tmp.setPointNum(pointNum);
@@ -31,9 +34,9 @@ namespace gp2{
 	*  @return ˆê’v‚µ‚½Ü‚êü‚ÌW‡
 	*/
 	std::vector<int> CompLine::comparePLine(){
-		// Ü‚êü‚Ì”‚ª³‚µ‚­‚È‚¢ê‡
-		if(pLineVector.size() < PLINE_MIN || PLINE_MAX < pLineVector.size())
-			throw std::runtime_error("pLine num out of range");
+		// Ü‚êü‚Ì”‚ª­‚È‚·‚¬‚éê‡
+		if(pLineVector.size() < PLINE_MIN)
+			throw std::runtime_error("Too few pLine num");
 		std::vector<int> matchList;
 		std::vector<pLine>::iterator it;
 		int i;

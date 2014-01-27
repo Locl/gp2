@@ -22,6 +22,12 @@ namespace gp2{
 		if(this->pointNum == 0)throw std::runtime_error("PointNum not set");
 		// 折れ線を構成する座標の数が上限を超えた場合
 		if(this->point.size() >= this->pointNum)throw std::runtime_error("Point over set");
+		// 座標のxまたはy座標が範囲外の場合
+		if(point.getx() <= POINTVAL_X_MIN || POINTVAL_X_MAX <= point.getx()
+			|| point.gety() <= POINTVAL_Y_MIN || POINTVAL_Y_MAX <= point.gety())
+		{
+			throw std::runtime_error("Point range error");
+		}
 		this->point.push_back(point);
 	}
 
